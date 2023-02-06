@@ -25,8 +25,8 @@ const TaskList = () => {
   const getTasks = async () => {
     setisLoading(true);
     try {
-      const { data } = await Axios.get(`${URL}`);
-      console.log(data)
+      const { data } = await Axios.get(`${URL}/api/tasks`);
+      // console.log(data)
       setTasks(data);
       setisLoading(false);
     } catch (error) {
@@ -45,7 +45,7 @@ const TaskList = () => {
       return toast.error("Input field cannot be empty");
     }
     try {
-      await Axios.post(`${URL}`, formData);
+      await Axios.post(`${URL}/api/tasks`, formData);
       toast.success("Task added successfully");
       setFormData({ ...formData, name: "" });
       getTasks();
@@ -56,7 +56,7 @@ const TaskList = () => {
 
   const deleteTask = async (id) => {
     try {
-      await Axios.delete(`${URL}/${id}`);
+      await Axios.delete(`${URL}/api/tasks/${id}`);
       toast.success("Task deleted successfully");
       getTasks();
     } catch (error) {
@@ -83,7 +83,7 @@ const TaskList = () => {
       return toast.error("Input field cannot be empty");
     }
     try {
-      await Axios.put(`${URL}/${taskID}`, formData);
+      await Axios.put(`${URL}/api/tasks/${taskID}`, formData);
       toast.success("Task updated successfully");
       setFormData({ ...formData, name: "" });
       setisEditing(false);
@@ -99,7 +99,7 @@ const TaskList = () => {
       completed: true,
     };
     try {
-      await Axios.put(`${URL}/${task._id}`, newFormData);
+      await Axios.put(`${URL}/api/tasks/${task._id}`, newFormData);
       toast.success("Task completed successfully");
       getTasks();
     } catch (error) {
